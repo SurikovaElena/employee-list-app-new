@@ -14,14 +14,12 @@ export type Toption = {
 //тип данных для Списка сотрудников
 export type TOptions = Toption[];
 
-export function AddEmployeeDialogBox ({show, onRequestClose, addEmployee}){
-
+export function AddEmployeeDialogBox({show, onRequestClose, addEmployee}) {
     const [employee, setEmployee] = useState<TEmployee>({});
 
     if (!show) {
         return null;
     }
-
 
     const handleClick = () => {
         addEmployee(employee);
@@ -36,12 +34,14 @@ export function AddEmployeeDialogBox ({show, onRequestClose, addEmployee}){
             ...employee,
             ...updatedValue
         }));
-  }
+    }
+
     const options: TOptions = [
         {key: 'unknown', value: "Не выбрано"},
         {key: 'male', value: "Мужской"}, 
         {key: 'female', value: "Женский"}
     ]
+    
     return (
         <div className="modal-box" onClick={onRequestClose}>
             <div className="modal-content" onClick={e => e.stopPropagation()}>

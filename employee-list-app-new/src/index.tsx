@@ -22,8 +22,9 @@ export type TEmployee = {
 export type TEmployees = TEmployee[];
 
 function App() {
-  const [employeeList, setEmployeeList] = useState<TEmployees>([
-      {
+  const [employeeList, setEmployeeList] = useState<TEmployees>(
+  [
+  {
     "id": 1,
     "lastName": "Иванов",
     "firstName": "Иван",
