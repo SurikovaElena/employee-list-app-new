@@ -3,7 +3,7 @@ body,
 #root {
     height: 100%;
     margin: 0;
-    background: linear-gradient(to bottom, #f7fdff, #e8f9ff); /* Мелкий шум */
+    background: linear-gradient(to bottom, #f7fdff, #e8f9ff); 
     background-size: 100% 100%, 100% 100%, 50px 50px; 
     background-repeat: no-repeat, no-repeat, repeat;
 }
@@ -114,7 +114,4 @@ body,
 }
 .modal-body {
     /* Добавьте стили для содержимого модального окна */
-}
-.denim-texture {
-
 }

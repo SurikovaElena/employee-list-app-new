@@ -2,6 +2,7 @@ import React, { useEffect, useState} from 'react';
 import { TEmployees } from './index';
 
 export function EmployeeList(props: {employeeList : TEmployees}) {
+    
     function formatDate(dob: Date | undefined): string {
         let date: string = "";
         if (dob) {
@@ -14,6 +15,7 @@ export function EmployeeList(props: {employeeList : TEmployees}) {
         }
         return date;
     }
+
     return (
     <div> 
         <div className = 'grid-container'>
