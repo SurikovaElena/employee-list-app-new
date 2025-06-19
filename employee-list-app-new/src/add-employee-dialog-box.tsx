@@ -2,42 +2,46 @@ import React, { useEffect, useState} from 'react';
 import Modal from 'react-modal';
 import { Input } from './input';
 import { Button } from './button';
+import { Select } from './select';
+import { TEmployee } from './index';
+
+//тип данных для списка полов
+export type Toption = {
+  key: string;
+  value: string
+};
+
+//тип данных для Списка сотрудников
+export type TOptions = Toption[];
 
 export function AddEmployeeDialogBox ({show, onRequestClose, addEmployee}){
-    const [inputValueLastName, setInputValueLastName] = useState('');
-    const [inputValueFirstName, setInputValueFirstName] = useState('');
-    const [inputValueMiddleName, setInputValueMiddleName] = useState('');
-    const [inputValueGender, setInputValueGender] = useState('');
-    const [inputValueDob, setInputValueDob] = useState('');
-    const [inputValuePosition, setInputValuePosition] = useState('');
+
+    const [employee, setEmployee] = useState<TEmployee>({});
+
     if (!show) {
         return null;
     }
-    //получение значения inputa 
-    const onInputCompleteLastName = (event) => { 
-        setInputValueLastName(event.target.value)
-    };
-    const onInputCompleteFirstName = (event) => { 
-        setInputValueFirstName(event.target.value)
-    };
-    const onInputCompleteMiddleName = (event) => { 
-        setInputValueMiddleName(event.target.value)
-    };
-    const onInputCompleteGender = (event) => { 
-        setInputValueGender(event.target.value)
-    };
-    const onInputCompleteDob = (event) => { 
-        setInputValueDob(event.target.value)
-    };
-    const onInputCompletePosition = (event) => { 
-        setInputValuePosition(event.target.value)
-    };
+
 
     const handleClick = () => {
-        addEmployee(inputValueLastName, inputValueFirstName, inputValueMiddleName, inputValueGender, inputValueDob, inputValuePosition);
+        addEmployee(employee);
+        setEmployee({});
         onRequestClose();
     };
 
+    const handleChange = (event) => {
+        let updatedValue = {};
+        updatedValue = {[event.target.name]:event.target.value};
+        setEmployee(employee => ({
+            ...employee,
+            ...updatedValue
+        }));
+  }
+    const options: TOptions = [
+        {key: 'unknown', value: "Не выбрано"},
+        {key: 'male', value: "Мужской"}, 
+        {key: 'female', value: "Женский"}
+    ]
     return (
         <div className="modal-box" onClick={onRequestClose}>
             <div className="modal-content" onClick={e => e.stopPropagation()}>
@@ -52,30 +56,26 @@ export function AddEmployeeDialogBox ({show, onRequestClose, addEmployee}){
                 <div className="modal-body">
                     <div>
                         <div className = "attribute-employee">
-                            <div> Фамилия*: </div>
-                            <Input inputComplete={onInputCompleteLastName}/>
+                            <Input inputComplete={(event) => handleChange(event)} name = {"lastName"} placeholder = {'Фамилия'} type = {"text"}/>
                         </div>
                         <div className = "attribute-employee">
-                            <div> Имя*: </div>
-                            <Input inputComplete={onInputCompleteFirstName}/>
+                            <Input inputComplete={(event) => handleChange(event)} name = {"firstName"} placeholder = {'Имя'} type = {"text"}/>
                         </div>
                         <div className = "attribute-employee">
-                            <div> Отчество: </div>
-                            <Input inputComplete={onInputCompleteMiddleName}/>
+                            <Input inputComplete={(event) => handleChange(event)} name = {"middleName"} placeholder = {'Отчество'} type = {"text"}/>
                         </div>
                         <div className = "attribute-employee">
-                            <div> Пол: </div>
-                            <Input inputComplete={onInputCompleteGender}/>
+                            <Input inputComplete={(event) => handleChange(event)} name = {"position"} placeholder = {'Должность'} type = {"text"}/>
                         </div>
                         <div className = "attribute-employee">
-                            <div> Дата Рождения: </div>
-                            <Input inputComplete={onInputCompleteDob}/>
+                            <Select selectComplete={(event) => handleChange(event)} name = {"gender"} multiple = {false} options = {options}/>
                         </div>
                         <div className = "attribute-employee">
-                            <div> Должность: </div>
-                            <Input inputComplete={onInputCompletePosition}/>
+                            <div className = "dob"> Дата Рождения </div>
+                            <Input inputComplete={(event) => handleChange(event)} className = {"input-date"} name = {"dob"} type = {"date"}/>
                         </div>
-                        <div className = "attribute-employee">
+
+                        <div className = "atribute-basement">
                             <div className = "footnote"> * - обязательное поле </div>
                             <button className = "button" onClick = {handleClick} > 
                                 Сохранить 

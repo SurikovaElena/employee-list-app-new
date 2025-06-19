@@ -1,17 +1,26 @@
 import React, { useEffect, useState} from 'react';
 
-export function Input (props: {inputComplete}){
+export interface InputField {
+  inputComplete: Function,
+  className?: string,
+  name: string,
+  placeholder?: string,
+  type: string,
+}
+
+export function Input({inputComplete, className, name, placeholder, type} : InputField) {
     const [inputValue, setInputValue] = useState('');
     
     return (
-        <div>
+        <form>
             <input 
-                type="text"                 
-                name='inputName' 
-                value={inputValue} 
-                className = "input"
-                onChange={(event) => {setInputValue(event.target.value); props.inputComplete(event)}}
+                type = {type}                
+                name = {name} 
+                value = {inputValue} 
+                className = {className || "input"} 
+                placeholder = {placeholder}
+                onChange = {(event) => {setInputValue(event.target.value); inputComplete(event)}}
             />            
-        </div>
+        </form>
     );
 }
