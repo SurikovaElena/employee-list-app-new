@@ -112,6 +112,15 @@ body,
     margin: 3px;
     color: #333; 
 }
+.hover-element {
+  justify-self: end;
+  height: 2px;
+  color: white;
+  z-index: 1; /* Поверх остального содержимого строки */
+}
+.pointer {
+    cursor: pointer;
+}
 .modal-body {
-    /* Добавьте стили для содержимого модального окна */
+    /* стили для содержимого модального окна */
 }
