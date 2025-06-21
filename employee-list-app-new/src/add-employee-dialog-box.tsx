@@ -15,7 +15,7 @@ export type Toption = {
 export type TOptions = Toption[];
 
 export function AddEmployeeDialogBox({show, onRequestClose, addEmployee}) {
-    const [employee, setEmployee] = useState<TEmployee>({});
+    const [employee, setEmployee] = useState<TEmployee>({id: 0});
 
     if (!show) {
         return null;
@@ -23,7 +23,7 @@ export function AddEmployeeDialogBox({show, onRequestClose, addEmployee}) {
 
     const handleClick = () => {
         addEmployee(employee);
-        setEmployee({});
+        setEmployee({id: 0});
         onRequestClose();
     };
 

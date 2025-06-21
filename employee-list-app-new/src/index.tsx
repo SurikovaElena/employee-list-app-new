@@ -9,7 +9,7 @@ import { AddEmployeeDialogBox } from './add-employee-dialog-box';
 
 //тип данных для одного Сотрудника
 export type TEmployee = {
-  id?: number;
+  id: number;
   lastName?: string;
   firstName?: string;
   middleName?: string;
@@ -129,9 +129,10 @@ function App() {
   
   //добавление сотрудника 
   const addEmployee = (employee) => {
-    let id = employeeList.length + 1;
+    const values : number [] = employeeList.map(obj => obj.id);
+    let maxId = Math.max(...values) + 1;
     let newEmployee = {
-      id: id,
+      id: maxId,
       lastName: employee.lastName,
       firstName: employee.firstName,
       middleName: employee.middleName,
@@ -140,6 +141,10 @@ function App() {
       position: employee.position
     };
     setEmployeeList([...employeeList, newEmployee]);
+  }
+
+  const deleteEmployee = (id) => {
+    setEmployeeList(employeeList.filter(item => item.id !== id));
   }
 
   return (
@@ -153,7 +158,7 @@ function App() {
             </button> 
           </div>
           <AddEmployeeDialogBox show={show} onRequestClose={onClickClose} addEmployee ={addEmployee}/>
-          <EmployeeList employeeList={employeeList}/>
+          <EmployeeList employeeList={employeeList} deleteEmployee = {deleteEmployee}/>
         </>
   );
 }
